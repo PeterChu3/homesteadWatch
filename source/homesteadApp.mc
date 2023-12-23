@@ -51,9 +51,9 @@ class homesteadApp extends Application.AppBase {
 
             String4 = "Ave Lap Time (HH:MM:SS): " + convertSecondsToMinutes(temp);
 
-            String5 = "Laps to 350/Remain: ";
+            String5 = getString5(temp);
             
-            String6 = "";
+            String6 = getString6(temp);
 
             String7 = "Homestead 2022";
             var typedArray = [String1, String2, String3, String4, String5, String6, String7] as Array<String>;
@@ -66,6 +66,21 @@ class homesteadApp extends Application.AppBase {
             var typedArray = ["", "No DATA YET", "or NO response", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
             WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
         }
+    }
+    function getString6(input) {
+        var remainingSeconds = 86400 - timeStringToSeconds(input[input.size() - 1][2]).toLong();
+
+        var hours = Math.floor(remainingSeconds / 3600);
+        var minutes = Math.floor(((remainingSeconds) % 3600) / 60);
+        var seconds = Math.floor((remainingSeconds) % 60);
+
+        return "Time Left (HH:MM:SS) :"+"("+ hours + ":" + minutes + ":" + seconds + ")";
+    }
+    function getString5(input) {
+        var lapTotal = input[input.size() - 1][1].toLong();
+        var goalLaps = 254;
+        var remain = goalLaps - lapTotal;
+        return "Laps to 350 mi: "+ goalLaps + "/Laps Left " + remain;
     }
     function convertSecondsToMinutes(input) {
         var divisor = input[input.size() - 1][1].toLong();
