@@ -2,8 +2,9 @@ import Toybox.Application;
 import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Communications;
+import Toybox.System;
 
-const URL = "https://jsonplaceholder.typicode.com/todos/2";
+const URL = "https://my4.raceresult.com/192607/RRPublish/data/list?key=9d484a9a9259ff0ae1a4a8570861bc3b&listname=Online%7CLap%20Details&page=live&contest=0&r=bib2&bib=12";
 
 class homesteadApp extends Application.AppBase {
 
@@ -28,10 +29,23 @@ class homesteadApp extends Application.AppBase {
         // set up the response callback function
         
     function onReceive(responseCode as Number, data as Null or Dictionary or String) as Void  {
-        //Ui.switchToView(new GarminJSONWebRequestWidgetView("onReceive: " + URL + "\n" + responseCode + " " + data), null, Ui.SLIDE_IMMEDIATE);
-       
-        //Get only the JSON data we are interested in and call the view class
-        WatchUi.switchToView(new homesteadView(data.get("userId"),data.get("id"),data.get("title")), null, WatchUi.SLIDE_IMMEDIATE);
+        if (responseCode == 200) {
+            System.println("Request Successful");                   // print success
+            var temp = (data.get("data") as Array);
+
+            System.println(temp[temp.size() - 1]); // obtains the last lap
+
+            var String1 = "Lap: " + temp[temp.size() - 1][1];
+            var miles = (temp[temp.size() - 1][1].toFloat() * 1.38).format("%.2f");
+            var String3 = "Miles: " + miles;
+
+            //Get only the JSON data we are interested in and call the view class
+            WatchUi.switchToView(new homesteadView(String1, String3,"Homestead tracker 2022"), null, WatchUi.SLIDE_IMMEDIATE);
+        }
+        else {
+            System.println("Response: " + responseCode);            // print response code
+            WatchUi.switchToView(new homesteadView("BROKEN", "BROKEN","NOT Homestead tracker 2022"), null, WatchUi.SLIDE_IMMEDIATE);
+        }
     }
 
     function makeRequest() {
