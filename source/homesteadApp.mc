@@ -3,6 +3,7 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.Communications;
 import Toybox.System;
+import Toybox.Math;
 
 const URL = "https://my4.raceresult.com/192607/RRPublish/data/list?key=9d484a9a9259ff0ae1a4a8570861bc3b&listname=Online%7CLap%20Details&page=live&contest=0&r=bib2&bib=12";
 
@@ -30,7 +31,7 @@ class homesteadApp extends Application.AppBase {
         // set up the response callback function
         
     function onReceive(responseCode as Number, data as Null or Dictionary or String) as Void  {
-        if (responseCode == 200) {
+        if (responseCode == 200 && (data.get("data") as Array).size() > 0) {
             var temp = (data.get("data") as Array);
             var String1 = "";
             var String2 = "";
@@ -48,9 +49,9 @@ class homesteadApp extends Application.AppBase {
 
             String3 = "Total Average speed: " + getAverageSpeed(temp[temp.size() - 1]);
 
-            String4 = "";
+            String4 = "Ave Lap Time (HH:MM:SS): " + convertSecondsToMinutes(temp);
 
-            String5 = "";
+            String5 = "Laps to 350/Remain: ";
             
             String6 = "";
 
@@ -62,21 +63,32 @@ class homesteadApp extends Application.AppBase {
 
         }
         else {
-            var typedArray = ["", "FUCK THIS", "", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
+            var typedArray = ["", "No DATA YET", "or NO response", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
             WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
         }
     }
+    function convertSecondsToMinutes(input) {
+        var divisor = input[input.size() - 1][1].toLong();
+        var totalSeconds = timeStringToSeconds(input[input.size() - 1][2]).toLong();
+        System.println(divisor);
+        System.println(totalSeconds);
+
+        System.println("I got here");
+
+        // Calculate minutes and seconds
+        var hours = Math.floor(totalSeconds / divisor / 3600);
+        var minutes = Math.floor(((totalSeconds / divisor) % 3600) / 60);
+        var seconds = Math.floor((totalSeconds / divisor) % 60);
+        return "("+ hours + ":" + minutes + ":" + seconds + ")";
+    }
     function getAverageSpeed(input) {
-        var miles = (input[1].toFloat() * 1.38).format("%.2f");
-        
-        timeStringToSeconds(input[2]);
+        var miles = (input[1].toFloat() * 1.38).format("%.2f");        
         // Convert time from seconds to hours
         var timeInHours = timeStringToSeconds(input[2]) / 3600;
 
         // Calculate miles per hour
         var mph = (miles.toFloat() / timeInHours).format("%.2f");
         return mph;
-
     }
     function timeStringToSeconds(timeString as String) {
         var hours = 0, minutes = 0, seconds = 0, fractions = 0;
