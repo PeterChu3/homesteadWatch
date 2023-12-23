@@ -23,7 +23,8 @@ class homesteadApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new homesteadView("Loading data","","") ] as Array<Views or InputDelegates>;
+        var typedArray = ["", "", "", "Loading data", "","", ""] as Array<String>;
+        return [ new homesteadView(typedArray) ] as Array<Views or InputDelegates>;
     }
 
         // set up the response callback function
@@ -37,14 +38,17 @@ class homesteadApp extends Application.AppBase {
 
             var String1 = "Lap: " + temp[temp.size() - 1][1];
             var miles = (temp[temp.size() - 1][1].toFloat() * 1.38).format("%.2f");
-            var String3 = "Miles: " + miles;
+            var String2 = "Miles: " + miles;
+            var typedArray = [String1, String2, "", "Homestead 2022", "","NICE", ""] as Array<String>;
 
             //Get only the JSON data we are interested in and call the view class
-            WatchUi.switchToView(new homesteadView(String1, String3,"Homestead tracker 2022"), null, WatchUi.SLIDE_IMMEDIATE);
+            WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
+
         }
         else {
             System.println("Response: " + responseCode);            // print response code
-            WatchUi.switchToView(new homesteadView("BROKEN", "BROKEN","NOT Homestead tracker 2022"), null, WatchUi.SLIDE_IMMEDIATE);
+            var typedArray = ["", "FUCK THIS", "", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
+            WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
         }
     }
 

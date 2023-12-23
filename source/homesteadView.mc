@@ -5,24 +5,23 @@ import Toybox.Lang;
 
 class homesteadView extends WatchUi.View {
 
-    	var _userId;
-    	var _Id;
-    	var _title;
+    	var _tempArray;
 
-    function initialize(userId, Id, title) {
+    function initialize(tempArray) {
         View.initialize();
-        _userId = userId.toString();   
-        _Id = Id.toString();
-        _title = title;
+        _tempArray = tempArray;
     }
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
         setLayout(Rez.Layouts.MainLayout(dc));
-        (View.findDrawableById("high") as Toybox.WatchUi.Text).setText(_Id);
-        (View.findDrawableById("low") as Toybox.WatchUi.Text).setText(_userId);
-        (View.findDrawableById("center") as Toybox.WatchUi.Text).setText(_title);
-
+        (View.findDrawableById("l1") as Toybox.WatchUi.Text).setText(_tempArray[0]);
+        (View.findDrawableById("l2") as Toybox.WatchUi.Text).setText(_tempArray[1]);
+        (View.findDrawableById("l3") as Toybox.WatchUi.Text).setText(_tempArray[2]);
+        (View.findDrawableById("l4") as Toybox.WatchUi.Text).setText(_tempArray[3]);
+        (View.findDrawableById("l5") as Toybox.WatchUi.Text).setText(_tempArray[4]);
+        (View.findDrawableById("l6") as Toybox.WatchUi.Text).setText(_tempArray[5]);
+        (View.findDrawableById("l7") as Toybox.WatchUi.Text).setText(_tempArray[6]);
     }
 
     // Called when this View is brought to the foreground. Restore

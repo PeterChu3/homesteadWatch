@@ -1,6 +1,10 @@
 <layout id="MainLayout">
     <!-- <bitmap id="id_monkey" x="center" y="center" filename="../drawables/monkey.png" /> -->
-    <label id="center" x="center" y="center" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
-    <label id="high" x="center" y="10" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
-    <label id="low" x="center" y="210" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l1" x="center" y="10" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l2" x="center" y="50" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l3" x="center" y="90" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l4" x="center" y="130" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l5" x="center" y="170" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l6" x="center" y="210" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
+    <label id="l7" x="center" y="250" font="Gfx.FONT_XTINY" justification="Gfx.TEXT_JUSTIFY_CENTER" />
 </layout>
