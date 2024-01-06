@@ -5,7 +5,7 @@ import Toybox.Communications;
 import Toybox.System;
 import Toybox.Math;
 
-const URL = "https://my4.raceresult.com/192607/RRPublish/data/list?key=9d484a9a9259ff0ae1a4a8570861bc3b&listname=Online%7CLap%20Details&page=live&contest=0&r=bib2&bib=12";
+const URL = "https://raw.githubusercontent.com/PeterChu3/jsonHosting/main/12.json";
 
 class homesteadApp extends Application.AppBase {
 
@@ -85,10 +85,6 @@ class homesteadApp extends Application.AppBase {
     function convertSecondsToMinutes(input) {
         var divisor = input[input.size() - 1][1].toLong();
         var totalSeconds = timeStringToSeconds(input[input.size() - 1][2]).toLong();
-        System.println(divisor);
-        System.println(totalSeconds);
-
-        System.println("I got here");
 
         // Calculate minutes and seconds
         var hours = Math.floor(totalSeconds / divisor / 3600);
