@@ -1,3 +1,6 @@
 <strings>
     <string id="AppName">homestead</string>
+    <string id="Laps">Laps: 0</string>
+    <string id="Miles">100</string>
+
 </strings>

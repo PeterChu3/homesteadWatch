@@ -22,15 +22,19 @@ class homesteadApp extends Application.AppBase {
     function onStop(state as Dictionary?) as Void {
     }
 
+    function getGlanceView() {
+        return [ new homesteadGlance() ];
+    }
+
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
         var typedArray = ["", "", "", "Loading data", "","", ""] as Array<String>;
         return [ new homesteadView(typedArray) ] as Array<Views or InputDelegates>;
     }
 
-        // set up the response callback function
-        
-    function onReceive(responseCode as Number, data as Null or Dictionary or String) as Void  {
+
+    // set up the response callback function    
+    function Receive1(responseCode as Number, data as Null or Dictionary or String) as Void  {
         if (responseCode == 200 && (data.get("data") as Array).size() > 0) {
             var temp = (data.get("data") as Array);
             var String1 = "";
@@ -58,9 +62,15 @@ class homesteadApp extends Application.AppBase {
             String7 = "Homestead 2022";
             var typedArray = [String1, String2, String3, String4, String5, String6, String7] as Array<String>;
 
+            Application.Properties.setValue("Laps", String1);
+            Application.Properties.setValue("Miles", String2);
+            System.println("Writing values");
             //Get only the JSON data we are interested in and call the view class
             WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
 
+        }
+        else if (data == null) { 
+            
         }
         else {
             var typedArray = ["", "No DATA YET", "or NO response", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
@@ -147,9 +157,9 @@ class homesteadApp extends Application.AppBase {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
-        var responseCallback = method(:onReceive);
+        // var responseCallback = method(:onReceive);
  
-        Communications.makeWebRequest(url, params, options, method(:onReceive));
+        Communications.makeWebRequest(url, params, options, method(:Receive1));
     }
 
 }

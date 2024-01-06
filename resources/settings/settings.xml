@@ -1,0 +1,8 @@
+<settings>
+    <setting propertyKey="@Properties.Laps" title="@Strings.Laps">
+        <settingConfig type="alphaNumeric" maxLength="40"/>
+    </setting>
+    <setting propertyKey="@Properties.Miles" title="@Strings.Miles">
+        <settingConfig type="alphaNumeric" maxLength="40"/>
+    </setting>
+</settings>
