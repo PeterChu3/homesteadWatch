@@ -45,8 +45,8 @@ class homesteadApp extends Application.AppBase {
             var String6 = "";
             var String7 = "";
 
-
-            String1 = "Lap: " + temp[temp.size() - 1][1];
+            var lap = temp[temp.size() - 1][1];
+            String1 = "Lap: " + lap;
             var miles = (temp[temp.size() - 1][1].toFloat() * 1.38).format("%.2f");
             String2 = "Miles: " + miles;
 
@@ -62,8 +62,14 @@ class homesteadApp extends Application.AppBase {
             String7 = "Homestead 2022";
             var typedArray = [String1, String2, String3, String4, String5, String6, String7] as Array<String>;
 
-            Application.Properties.setValue("Laps", String1);
-            Application.Properties.setValue("Miles", String2);
+            var lapsStore = "L: " + lap;
+            var milesStore = "M: " + miles;
+            var aveSpeedStore = "AS: " + getAverageSpeed(temp[temp.size() - 1]);;
+            var aveLapStore = "AL: " + convertSecondsToMinutes(temp);
+            Application.Properties.setValue("Laps", lapsStore);
+            Application.Properties.setValue("Miles", milesStore);
+            Application.Properties.setValue("AS", aveSpeedStore);
+            Application.Properties.setValue("AL", aveLapStore);           
             System.println("Writing values");
             //Get only the JSON data we are interested in and call the view class
             WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);

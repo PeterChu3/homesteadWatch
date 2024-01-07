@@ -5,4 +5,10 @@
     <setting propertyKey="@Properties.Miles" title="@Strings.Miles">
         <settingConfig type="alphaNumeric" maxLength="40"/>
     </setting>
+    <setting propertyKey="@Properties.AL" title="@Strings.AL">
+        <settingConfig type="alphaNumeric" maxLength="40"/>
+    </setting>
+    <setting propertyKey="@Properties.AS" title="@Strings.AS">
+        <settingConfig type="alphaNumeric" maxLength="40"/>
+    </setting>
 </settings>
