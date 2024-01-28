@@ -5,8 +5,9 @@ import Toybox.Communications;
 import Toybox.System;
 import Toybox.Math;
 
-const URL = "https://raw.githubusercontent.com/PeterChu3/jsonHosting/main/12.json";
-
+// const URL = "https://raw.githubusercontent.com/PeterChu3/jsonHosting/main/12.json";
+const URL = "https://my1.raceresult.com/259072/RRPublish/data/list?key=eca2e3d1510caee33b7710a250a6f2c1&listname=Online%7CLap%20Details&page=live&contest=0&r=bib2&bib=112"; //2024
+// const URL = "https://my4.raceresult.com/192607/RRPublish/data/list?key=9d484a9a9259ff0ae1a4a8570861bc3b&listname=Online%7CLap%20Details&page=live&contest=0&r=bib2&bib=12"; //2022
 class homesteadApp extends Application.AppBase {
 
     function initialize() {
@@ -15,7 +16,7 @@ class homesteadApp extends Application.AppBase {
 
     // onStart() is called on application start up
     function onStart(state as Dictionary?) as Void {
-        makeRequest();
+        // makeRequest();
     }
 
     // onStop() is called when your application is exiting
@@ -28,6 +29,7 @@ class homesteadApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as Array<Views or InputDelegates>? {
+        makeRequest();
         var typedArray = ["", "", "", "Loading data", "","", ""] as Array<String>;
         return [ new homesteadView(typedArray) ] as Array<Views or InputDelegates>;
     }
@@ -59,7 +61,7 @@ class homesteadApp extends Application.AppBase {
             
             String6 = getString6(temp);
 
-            String7 = "Homestead 2022";
+            String7 = "Homestead 2024";
             var typedArray = [String1, String2, String3, String4, String5, String6, String7] as Array<String>;
 
             var lapsStore = "L: " + lap;
@@ -70,17 +72,21 @@ class homesteadApp extends Application.AppBase {
             Application.Properties.setValue("Miles", milesStore);
             Application.Properties.setValue("AS", aveSpeedStore);
             Application.Properties.setValue("AL", aveLapStore);           
-            System.println("Writing values");
             //Get only the JSON data we are interested in and call the view class
             WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
 
         }
-        else if (data == null) { 
-            
+        else if (responseCode == 200) { 
+            var typedArray2 = ["", "", "The request was successful, but ", "No race data yet.", "GL Parker","", ""] as Array<String>;
+            WatchUi.switchToView(new homesteadView(typedArray2), null, WatchUi.SLIDE_IMMEDIATE);
+        }
+        else if (responseCode == 404) { //uncheck use device https requirements
+            var typedArray2 = ["", "", "", "Something fucked up in App", responseCode.toString(),"", ""] as Array<String>;
+            WatchUi.switchToView(new homesteadView(typedArray2), null, WatchUi.SLIDE_IMMEDIATE);
         }
         else {
-            var typedArray = ["", "No DATA YET", "or NO response", "HOW DO YOU DO THIS???", "","BROKEN", ""] as Array<String>;
-            WatchUi.switchToView(new homesteadView(typedArray), null, WatchUi.SLIDE_IMMEDIATE);
+            var typedArray3 = ["", "No DATA YET", "or NO response", "HOW DO YOU DO THIS???", "BROKEN", responseCode.toString(), ""] as Array<String>;
+            WatchUi.switchToView(new homesteadView(typedArray3), null, WatchUi.SLIDE_IMMEDIATE);
         }
     }
     function getString6(input) {
