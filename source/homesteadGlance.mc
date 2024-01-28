@@ -15,7 +15,6 @@ class homesteadGlance extends Ui.GlanceView {
         var text2 = Application.Properties.getValue("Miles");
         var text3 = Application.Properties.getValue("AL");
         var text4 = Application.Properties.getValue("AS");
-        System.println(text3);
     	dc.drawRectangle(0, 0, dc.getWidth(), dc.getHeight());
         dc.drawText(10, 2,     
             Graphics.FONT_GLANCE, text1,
